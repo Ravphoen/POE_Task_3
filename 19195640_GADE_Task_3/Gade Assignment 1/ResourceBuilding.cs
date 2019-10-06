@@ -9,7 +9,11 @@ namespace Gade_Assignment_1
 {
     class ResourceBuilding : Building
     {
-        public ResourceBuilding(int xxpos, int yypos, int hhealth, int tteam, string ssymbol)
+        public bool destroyed { get; set; }
+        public Map m;
+        BattleForm bf = new BattleForm();
+        
+        public ResourceBuilding(int xxpos, int yypos, int hhealth, int tteam, string ssymbol, int resources)
         {
             this.b_xpos = xxpos;
             this.b_ypos = yypos;
@@ -17,8 +21,8 @@ namespace Gade_Assignment_1
             this.b_max_health= hhealth;
             this.b_team = tteam;
             this.b_symbol = ssymbol;
+            remaning_resources = resources;
         }
-
         //properties
         public int XPos
         {
@@ -79,30 +83,33 @@ namespace Gade_Assignment_1
             get { return base.b_symbol; }
             set { b_symbol = value; }
         }
-
-
-        //new resource bulding fields
+        //new resource building fields
         string resource_type;
-        int resources_generated;
-        int resources_per_round;//will generate 1 per round
-        int remaning_resources;
-       
+        int resources_generated = 0;
+        int resources_per_round = 1;//will generate 1 per round
+        int remaning_resources;       
 
-        public void ResourceGeneration()
+        public int ResourceGeneration()
         {
-            resources_generated = 1;
-            if(resources_generated != 0)
+            int resourcetemp = resources_generated;
+            if (destroyed==false)//if building is not destroyed
             {
-                resources_generated++;
-                remaning_resources = resources_generated;
+                if (remaning_resources >= resources_per_round)
+                {
+                    resources_generated += resources_per_round;
+                    remaning_resources -= resources_per_round;
+                }
+                else if (remaning_resources > 0)
+                {
+                    resources_generated += remaning_resources;
+                    remaning_resources = 0;
+                }
             }
-            else if(resources_generated == 0)
-            {
-               //do nothing 
-            }
+            resourcetemp = resources_generated - resourcetemp; // shows the resources
+            return resourcetemp;
         }
 
-        //implementing and overriding methods
+        //implementing and overriding building's abstract methods
         public override void Death(List<Building>buildings)
         {
 
@@ -117,19 +124,33 @@ namespace Gade_Assignment_1
         }
         public override string ToString()
         {
-            //overriding the ToString method in C# by displaying values in class to the user
-            return "BuildingInfo:" + "Building position :(" + b_xpos + "," + b_ypos + ")"
-            + "Building type: Resource Building"
-            + "\nBuilding Health: " + b_health
-            + ".\nBuilding Max Health:" + b_max_health
-            + ".\nBuilding team" + b_team
-            + ".\nBuilding Symbol:" + b_symbol
+            //overriding the ToString method.
+            string info = "";
+            info += "BuildingInfo:";
+            if (b_team == 1)
+            {
+                info += "Produces Melee Units";
+            }
+            if(b_team == 2)
+            {
+                info += "Produces Ranged Units";
+            }
+            else
+            {
+                info += "Produces Wizard Units";
+            }
+            info += "Building position :(" + b_xpos + "," + b_ypos + ")";
+            info += "Building type: Resource Building";
+            info += "\nBuilding Health: " + b_health;
+            info += ".\nBuilding Max Health:" + b_max_health;
+            info += ".\nBuilding team:" + b_team;
+            info+= ".\nBuilding Symbol:" + b_symbol;
+                        
+            
+            info += (destroyed ? "Building Status: Destroyed" : "Building Status: Operational");
+            return info;
             ;
         }
-
-        public Map m;
-        BattleForm bf = new BattleForm();
-
         public override void Save()
         {
             StreamWriter savestream;

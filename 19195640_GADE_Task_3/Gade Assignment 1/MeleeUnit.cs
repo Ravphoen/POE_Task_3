@@ -9,6 +9,8 @@ namespace Gade_Assignment_1
 {
     class MeleeUnit : Unit
     {
+        public bool dead { get; set; }
+
         public MeleeUnit(int xxpos, int yypos, int hhealth, int aattack, int aattack_range, int tteam, string ssymbol, bool aattacking, string uunit_name)
         {
             this.xpos = xxpos;
@@ -141,6 +143,11 @@ namespace Gade_Assignment_1
             enemytofight.Health -= this.attack;
             Attacking = true;
         }
+        public override void CombatW(WizardUnit enemytofight)
+        {
+            enemytofight.Health -= this.attack;
+            Attacking = true;
+        }
         public override bool Can_AttackR(RangedUnit enemycanattack)
         {
             bool Xpositioninrange = false;
@@ -167,6 +174,31 @@ namespace Gade_Assignment_1
             }
         }
         public override bool Can_AttackM(MeleeUnit enemycanattack)
+        {
+            bool Xpositioninrange = false;
+
+            if (Math.Abs(enemycanattack.XPos) <= Math.Abs(this.XPos) + this.Attack_Range)
+            {
+                Xpositioninrange = true;
+            }
+
+            bool Ypositioninrange = false;
+
+            if (Math.Abs(enemycanattack.YPos) <= Math.Abs(this.YPos) + this.Attack_Range)
+            {
+                Ypositioninrange = true;
+            }
+
+            if (Xpositioninrange && Ypositioninrange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool Can_AttackW(WizardUnit enemycanattack)
         {
             bool Xpositioninrange = false;
 

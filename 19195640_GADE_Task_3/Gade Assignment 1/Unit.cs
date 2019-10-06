@@ -22,12 +22,14 @@ namespace Gade_Assignment_1
         protected bool attacking;
         protected string unit_name;
 
-        //method to move it around
+      
         public abstract void Move(Map.Direction d);
         public abstract void CombatM(MeleeUnit enemytofight);
         public abstract void CombatR(RangedUnit enemytofight);
+        public abstract void CombatW(WizardUnit enemytofight);
         public abstract bool Can_AttackM(MeleeUnit enemycanattack);
         public abstract bool Can_AttackR(RangedUnit enemycanattack);
+        public abstract bool Can_AttackW(WizardUnit enemycanattack);
         public abstract RangedUnit Closest_Other_EnemyR(List<RangedUnit> rangedUnits);
         public abstract MeleeUnit Closest_Other_EnemyM(List<MeleeUnit> meleeUnits);
         public abstract WizardUnit Closest_Other_EnemyW(List<WizardUnit> wizardunits);

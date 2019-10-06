@@ -26,21 +26,31 @@ namespace Gade_Assignment_1//task 3
 
         public Map(int numberofunits, int numberofbuildings)
         {
+            //numberofunits and numberofbuildings are declared in game engine
+
             map1 = new string[20, 20];
+            //Ranged Units (Team 1, 5 of each)
             rangedUnits = new List<RangedUnit>();
-            meleeUnits = new List<MeleeUnit>();
-            wizardUnits = new List<WizardUnit>();
             ranged_unit_amount = numberofunits / 3;
+            //Melee Units (Team 2, 5 of each)
+            meleeUnits = new List<MeleeUnit>();
             melee_unit_amount = numberofunits / 3;
+            //Wizard Units (Team 3, 5 of each)
+            wizardUnits = new List<WizardUnit>();
             wizard_unit_amount = numberofunits / 3;
-            //numberofunits and buildings is declared in game engine
+
+            //Two of each building per team.
+            factory_buildings = new List<FactoryBuilding>();
+            T1_factory_building_amount  = numberofbuildings / 6;
+            T2_factory_building_amount  = numberofbuildings / 6;
+            T3_factory_building_amount  = numberofbuildings / 6;
+
 
             resource_buildings = new List<ResourceBuilding>();
-            factory_buildings = new List<FactoryBuilding>();
-            T1_factory_building_amount = numberofbuildings / 2;
-            T2_factory_building_amount = numberofbuildings / 2;
-            T1_resource_building_amount = numberofbuildings / 2;
-            T2_resource_building_amount = numberofbuildings / 2;            
+            T1_resource_building_amount = numberofbuildings / 6;
+            T2_resource_building_amount = numberofbuildings / 6;
+            T3_resource_building_amount = numberofbuildings / 6;
+            
         }
         public enum Direction
         {
@@ -55,19 +65,21 @@ namespace Gade_Assignment_1//task 3
         int melee_unit_amount;
         int wizard_unit_amount;
 
-        //two of each building type per team
-        int T1_resource_building_amount = 2;
-        int T1_factory_building_amount = 2;
+        //variables storing how many buildings to spawn per team (two for each)
+        int T1_resource_building_amount;
+        int T2_resource_building_amount;
+        int T3_resource_building_amount;
 
-        int T2_resource_building_amount = 2;
-        int T2_factory_building_amount = 2;
+        int T1_factory_building_amount;
+        int T2_factory_building_amount;
+        int T3_factory_building_amount;
 
 
         public void UnitGeneration()
         {
             int randomXposition;
             int randomYposition;
-            //generating melee units
+            //generating melee units (Team 1)
             for (int i = 0; i < melee_unit_amount; i++)
             {
                 randomXposition = r.Next(1, 19);
@@ -77,7 +89,7 @@ namespace Gade_Assignment_1//task 3
                 meleeUnits.Add(M);
                 units.Add(M);
             }
-            //generating ranged units
+            //generating ranged units (Team 2)
             for (int i = 0; i < ranged_unit_amount; i++)
             {
                 randomXposition = r.Next(1, 19);
@@ -86,7 +98,7 @@ namespace Gade_Assignment_1//task 3
                 rangedUnits.Add(R);
                 units.Add(R);
             }
-            //generating wizard units
+            //generating wizard units (Team 3)
             for (int i = 0; i < wizard_unit_amount; i++)
             {
                 randomXposition = r.Next(1, 19);
@@ -107,7 +119,7 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
                
-                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 1, "[*]");
+                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 1, "[*]", 1);
                 resource_buildings.Add(RB);
                 buildings.Add(RB);
             }
@@ -117,7 +129,17 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
                
-                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 2, "[+]");
+                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 2, "[+]",1);
+                resource_buildings.Add(RB);
+                buildings.Add(RB);
+            }
+            //generating team 3 resource buildings
+            for (int i = 0; i < T2_resource_building_amount; i++)
+            {
+                randomXposition = r.Next(1, 19);
+                randomYposition = r.Next(1, 19);
+
+                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 3, "[+]",1);
                 resource_buildings.Add(RB);
                 buildings.Add(RB);
             }
@@ -127,7 +149,7 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
                
-                FactoryBuilding FB = new FactoryBuilding(randomXposition, randomYposition, 100,1,"[+]");
+                FactoryBuilding FB = new FactoryBuilding(randomXposition, randomYposition, 100,1,"[+]", 3);
                 factory_buildings.Add(FB);
                 buildings.Add(FB);
             }
@@ -137,7 +159,17 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
                
-                FactoryBuilding FB = new FactoryBuilding(randomXposition, randomYposition, 100, 2, "[+]");
+                FactoryBuilding FB = new FactoryBuilding(randomXposition, randomYposition, 100, 2, "[+]",3);
+                factory_buildings.Add(FB);
+                buildings.Add(FB);
+            }
+            //generating team 3 factory buldngs
+            for (int i = 0; i < T3_factory_building_amount; i++)
+            {
+                randomXposition = r.Next(1, 19);
+                randomYposition = r.Next(1, 19);
+
+                FactoryBuilding FB = new FactoryBuilding(randomXposition, randomYposition, 100, 3, "[+]", 5);
                 factory_buildings.Add(FB);
                 buildings.Add(FB);
             }

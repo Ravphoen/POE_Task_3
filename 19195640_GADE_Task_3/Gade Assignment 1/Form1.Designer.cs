@@ -35,12 +35,15 @@
             this.textDisplayBox = new System.Windows.Forms.RichTextBox();
             this.gametimer = new System.Windows.Forms.Timer(this.components);
             this.MapTextBox = new System.Windows.Forms.RichTextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnRead = new System.Windows.Forms.Button();
+            this.lblResources = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(387, 12);
+            this.btnStart.Location = new System.Drawing.Point(384, 11);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(122, 50);
             this.btnStart.TabIndex = 0;
@@ -51,7 +54,7 @@
             // btnPause
             // 
             this.btnPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPause.Location = new System.Drawing.Point(533, 12);
+            this.btnPause.Location = new System.Drawing.Point(519, 11);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(111, 50);
             this.btnPause.TabIndex = 0;
@@ -63,17 +66,18 @@
             // 
             this.lblRound.AutoSize = true;
             this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRound.Location = new System.Drawing.Point(13, 12);
+            this.lblRound.Location = new System.Drawing.Point(13, 9);
             this.lblRound.Name = "lblRound";
-            this.lblRound.Size = new System.Drawing.Size(81, 29);
+            this.lblRound.Size = new System.Drawing.Size(131, 29);
             this.lblRound.TabIndex = 1;
-            this.lblRound.Text = "label1";
+            this.lblRound.Text = "roundlabel";
+            this.lblRound.Click += new System.EventHandler(this.lblRound_Click);
             // 
             // textDisplayBox
             // 
-            this.textDisplayBox.Location = new System.Drawing.Point(432, 124);
+            this.textDisplayBox.Location = new System.Drawing.Point(384, 150);
             this.textDisplayBox.Name = "textDisplayBox";
-            this.textDisplayBox.Size = new System.Drawing.Size(212, 270);
+            this.textDisplayBox.Size = new System.Drawing.Size(260, 244);
             this.textDisplayBox.TabIndex = 3;
             this.textDisplayBox.Text = "";
             this.textDisplayBox.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -92,14 +96,49 @@
             this.MapTextBox.Text = "";
             this.MapTextBox.TextChanged += new System.EventHandler(this.MapTextBox_TextChanged);
             // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(384, 68);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(122, 50);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnRead
+            // 
+            this.btnRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRead.Location = new System.Drawing.Point(519, 68);
+            this.btnRead.Name = "btnRead";
+            this.btnRead.Size = new System.Drawing.Size(111, 50);
+            this.btnRead.TabIndex = 0;
+            this.btnRead.Text = "Read";
+            this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // lblResources
+            // 
+            this.lblResources.AutoSize = true;
+            this.lblResources.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResources.Location = new System.Drawing.Point(180, 9);
+            this.lblResources.Name = "lblResources";
+            this.lblResources.Size = new System.Drawing.Size(165, 29);
+            this.lblResources.TabIndex = 5;
+            this.lblResources.Text = "resourcelabel";
+            // 
             // BattleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 420);
+            this.Controls.Add(this.lblResources);
             this.Controls.Add(this.MapTextBox);
             this.Controls.Add(this.textDisplayBox);
             this.Controls.Add(this.lblRound);
+            this.Controls.Add(this.btnRead);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.btnStart);
             this.Name = "BattleForm";
@@ -117,6 +156,9 @@
         private System.Windows.Forms.RichTextBox textDisplayBox;
         private System.Windows.Forms.Timer gametimer;
         private System.Windows.Forms.RichTextBox MapTextBox;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnRead;
+        private System.Windows.Forms.Label lblResources;
     }
 }
 

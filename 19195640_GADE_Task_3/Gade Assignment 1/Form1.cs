@@ -39,7 +39,8 @@ namespace Gade_Assignment_1
         private void timer1_Tick(object sender, EventArgs e)
         {
             MapTextBox.Text = gameengine.Updatedisplay();//updating map
-            lblRound.Text = gameengine.RoundsCompleted.ToString();//changng round text
+            lblRound.Text = "Round:"+gameengine.RoundsCompleted.ToString();//changing round text
+            lblResources.Text = "Resources:"+gameengine.Resources.ToString();//Displaying resources
             textDisplayBox.Text = gameengine.Updateunit();//unit info
             textDisplayBox.Text = gameengine.Updatebuilding();//building info
             gameengine.startround();//calling start round method
@@ -57,30 +58,21 @@ namespace Gade_Assignment_1
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
             BinaryFormatter BF = new BinaryFormatter();
-            FileStream FS = new FileStream("MapInfo.dat", FileMode.Open, FileAccess.Read, FileShare.None);
+            FileStream FS = new FileStream("MapInfo.dat", FileMode.Create, FileAccess.Write, FileShare.None);
 
             try
             {
                 using (FS)
                 {
                     BF.Serialize(FS, map);
-                    gameengine.Updateunit();
-                    gameengine.Updatebuilding();
+                    MessageBox.Show("File Saved");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-            //StreamWriter savestream;
-            //savestream = File.CreateText("c:AllBattlInfo.txt");
-            //savestream.WriteLine(textDisplayBox.Text = gameengine.Updateunit());
-            //savestream.Close();
-            //Console.WriteLine("Created File!");
-
         }
 
         private void btnRead_Click(object sender, EventArgs e)
@@ -112,6 +104,11 @@ namespace Gade_Assignment_1
         }
 
         private void MapTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRound_Click(object sender, EventArgs e)
         {
 
         }

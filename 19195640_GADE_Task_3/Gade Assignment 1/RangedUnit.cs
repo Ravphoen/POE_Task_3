@@ -21,7 +21,7 @@ namespace Gade_Assignment_1
             this.attacking = aattacking;
             this.unit_name = uunit_name;
         }
-
+        public bool dead { get; set; }
         //Properties       
         public int XPos
         {
@@ -107,9 +107,7 @@ namespace Gade_Assignment_1
         {
             get { return base.unit_name;}
             set {unit_name=value; }
-        }
-
-       
+        }              
         //implementing and overriding methods
         public override void Move(Map.Direction d)
         {
@@ -141,6 +139,11 @@ namespace Gade_Assignment_1
             enemytofight.Health -= this.attack;
             Attacking = true;
         }
+        public override void CombatW(WizardUnit enemytofight)
+        {
+            enemytofight.Health -= this.attack;
+            Attacking = true;
+        }
         public override bool Can_AttackR(RangedUnit enemycanattack)
         {
             bool Xpositioninrange = false;
@@ -167,6 +170,31 @@ namespace Gade_Assignment_1
             }
         }
         public override bool Can_AttackM(MeleeUnit enemycanattack)
+        {
+            bool Xpositioninrange = false;
+
+            if (Math.Abs(enemycanattack.XPos) <= Math.Abs(this.XPos) + this.Attack_Range)
+            {
+                Xpositioninrange = true;
+            }
+
+            bool Ypositioninrange = false;
+
+            if (Math.Abs(enemycanattack.YPos) <= Math.Abs(this.YPos) + this.Attack_Range)
+            {
+                Ypositioninrange = true;
+            }
+
+            if (Xpositioninrange && Ypositioninrange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool Can_AttackW(WizardUnit enemycanattack)
         {
             bool Xpositioninrange = false;
 

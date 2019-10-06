@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Gade_Assignment_1
 {
-    class GameEngine 
+    class GameEngine
     {
         public GameEngine()
         {
             roundscompleted = 0;
-            map = new Map(15,12);//declaring number of units and buildings for map class
+            map = new Map(15, 12);//declaring number of units and buildings for map class
             map.UnitGeneration();
             map.BuildingGeneration();
         }
@@ -22,26 +24,31 @@ namespace Gade_Assignment_1
 
         public int RoundsCompleted
         {
-            get { return roundscompleted;}          
-        }       
+            get { return roundscompleted; }
+        }
+
+        private int resources;
+
+        public int Resources
+        {
+            get { return resources; }
+        }
+
         public void startround()
         {
+            //combat for ranged units
             foreach (RangedUnit R in map.rangedUnits)
             {
                 Unit enemy = checkforenemies(R);
                 if (enemy != null)
                 {
-                    if (R.Health >= 25/100*R.MaxHealth)
+                    if (R.Health >= 25 / 100 * R.MaxHealth)
                     {
                         //movecloser
                         R.Move(Movecloser());
                         if (enemy is RangedUnit)
                         {
-                            RangedUnit Enemy = enemy as RangedUnit;
-                            if (R.Can_AttackR(Enemy))
-                            {
-                                R.CombatR(Enemy);
-                            }
+                            R.Move(RunAway());//won't attack team mate
                         }
                         if (enemy is MeleeUnit)
                         {
@@ -49,6 +56,14 @@ namespace Gade_Assignment_1
                             if (R.Can_AttackM(Enemy))
                             {
                                 R.CombatM(Enemy);
+                            }
+                        }
+                        if (enemy is WizardUnit)
+                        {
+                            WizardUnit Enemy = enemy as WizardUnit;
+                            if (R.Can_AttackW(Enemy))
+                            {
+                                R.CombatW(Enemy);
                             }
                         }
                     }
@@ -63,36 +78,89 @@ namespace Gade_Assignment_1
                     //do nothing
                 }
             }
-            foreach (MeleeUnit R in map.meleeUnits)
+            //combat for melee units
+            foreach (MeleeUnit M in map.meleeUnits)
             {
-                Unit enemy = checkforenemies(R);
+                Unit enemy = checkforenemies(M);
                 if (enemy != null)
                 {
-                    if (R.Health >= 25 / 100 * R.MaxHealth)
+                    if (M.Health >= 25 / 100 * M.MaxHealth)
                     {
                         //movecloser
-                        R.Move(Movecloser());
+                        M.Move(Movecloser());
                         if (enemy is RangedUnit)
                         {
                             RangedUnit Enemy = enemy as RangedUnit;
-                            if (R.Can_AttackR(Enemy))
+                            if (M.Can_AttackR(Enemy))
                             {
-                                R.CombatR(Enemy);
+                                M.CombatR(Enemy);
                             }
                         }
                         if (enemy is MeleeUnit)
                         {
-                            MeleeUnit Enemy = enemy as MeleeUnit;
-                            if (R.Can_AttackM(Enemy))
+                            M.Move(RunAway());//won't attack team mate
+                        }
+                        if (enemy is WizardUnit)
+                        {
+                            WizardUnit Enemy = enemy as WizardUnit;
+                            if (M.Can_AttackW(Enemy))
                             {
-                                R.CombatM(Enemy);
+                                M.CombatW(Enemy);
                             }
                         }
                     }
                     else
                     {
-                        R.Move(RunAway());
+                        M.Move(RunAway());
+
                         //run away 
+                    }
+                }
+                else
+                {
+                    //do nothing
+                }
+            }
+            //combat for wizard units(aoe not implemented)
+            foreach (WizardUnit W in map.wizardUnits)
+            {
+                Unit enemy = checkforenemies(W);
+                if (enemy != null)
+                {
+                    if (W.Health >= 50 / 100 * W.MaxHealth)//if health is above 50%
+                    {
+                        //movecloser
+                        W.Move(Movecloser());
+                        //wizards attack everything 
+                        if (enemy is RangedUnit)
+                        {
+                            RangedUnit Enemy = enemy as RangedUnit;
+                            if (W.Can_AttackR(Enemy))
+                            {
+                                W.CombatR(Enemy);
+                            }
+                        }
+                        if (enemy is MeleeUnit)
+                        {
+                            MeleeUnit Enemy = enemy as MeleeUnit;
+                            if (W.Can_AttackM(Enemy))
+                            {
+                                W.CombatM(Enemy);
+                            }
+                        }
+                        if (enemy is WizardUnit)
+                        {
+                            WizardUnit Enemy = enemy as WizardUnit;
+                            if (W.Can_AttackW(Enemy))
+                            {
+                                W.CombatW(Enemy);
+                            }
+                        }
+                    }
+                    else//runaway
+                    {
+                        W.Move(RunAway());
+
                     }
                 }
                 else
@@ -111,13 +179,13 @@ namespace Gade_Assignment_1
         {
             string info =
                 map.get_melee_unit_info()
-                +map.get_ranged_unit_info();
+                + map.get_ranged_unit_info();
             return info;
-            
+
         }
         public string Updatebuilding()
         {
-            string info = 
+            string info =
                 map.get_factory_building_info()
                 + map.get_resource_building_info();
             return info;
@@ -154,7 +222,7 @@ namespace Gade_Assignment_1
                 return null;
             }
 
-        }
+        }        
         public Map.Direction RunAway()
         {
             return Map.Direction.North;
@@ -162,6 +230,42 @@ namespace Gade_Assignment_1
         public Map.Direction Movecloser()
         {
             return Map.Direction.West;
+        }
+        public void Save()
+        {
+            BinaryFormatter BF = new BinaryFormatter();
+            FileStream FS = new FileStream("MapInfo.dat", FileMode.Create, FileAccess.Write, FileShare.None);
+
+            try
+            {
+                using (FS)
+                {
+                    BF.Serialize(FS, map);
+                    MessageBox.Show("File Saved");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void Load()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream fileStream = new FileStream("MapInfo.dat", FileMode.Open, FileAccess.Read, FileShare.None);
+            try
+            {
+                using (fileStream)
+                {
+                    map = (Map)formatter.Deserialize(fileStream);
+
+                    MessageBox.Show("Game Loaded");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

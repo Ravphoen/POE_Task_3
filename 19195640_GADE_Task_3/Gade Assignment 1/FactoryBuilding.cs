@@ -11,7 +11,7 @@ namespace Gade_Assignment_1
     class FactoryBuilding:Building
     {
 
-        public FactoryBuilding(int xxpos, int yypos, int hhealth, int tteam, string ssymbol)
+        public FactoryBuilding(int xxpos, int yypos, int hhealth, int tteam, string ssymbol, int productionspeed)
         {
             this.b_xpos = xxpos;
             this.b_ypos = yypos;
@@ -20,7 +20,9 @@ namespace Gade_Assignment_1
             this.b_team = tteam;
             this.b_symbol = ssymbol;
         }
+
         //properties
+        public bool destroyed { get; set; }
         public int XPos
         {
             get { return base.b_xpos; }
@@ -82,15 +84,11 @@ namespace Gade_Assignment_1
         }
 
         //new factory building fields.
-        
         public int production_speed//
         {
             get { return production_speed; }
         }
-
         int spawn_point;
-
-
         public override void Death(List<Building>buildings)
         {
             foreach (Building FB in buildings)
@@ -104,20 +102,33 @@ namespace Gade_Assignment_1
         }
         public override string ToString()
         {
-            //overriding the ToString method in C# by displaying values in class to the user
-            return "BuildingInfo:" + "Building position :(" + b_xpos + "," + b_ypos + ")"
-            +"Building type: Factory Building"
-            + "\nBuilding Health: " + b_health
-            + ".\nBuilding Max Health:" + b_max_health
-            + ".\nBuilding team" + b_team
-            + ".\nBuilding Symbol:" + b_symbol
-            ;
-        }
+            string info = "";
+            info += "BuildingInfo:";
+            if (b_team == 1)
+            {
+                info += "Produces Melee Units";
+            }
+            if (b_team == 2)
+            {
+                info += "Produces Ranged Units";
+            }
+            else
+            {
+                info += "Produces Wizard Units";
+            }
+            info += "Building position :(" + b_xpos + "," + b_ypos + ")";
+            info += "Building type: Resource Building";
+            info += "\nBuilding Health: " + b_health;
+            info += ".\nBuilding Max Health:" + b_max_health;
+            info += ".\nBuilding team:" + b_team;
+            info += ".\nBuilding Symbol:" + b_symbol;
 
+
+            info += (destroyed ? "Building Status: Destroyed" : "Building Status: Operational");
+            return info;
+        }
         public BattleForm bf;
         public Map m;
-
-
         public override void Save()
         {
 
@@ -126,14 +137,33 @@ namespace Gade_Assignment_1
             //savestream.WriteLine(bf.Text = m.get_factory_building_info());
             //savestream.Close();
             //bf.Text = ("Created File!");
-        }
-        //
+        }       
         public Map map;
         Random r = new Random();
 
-        public void UnitSpawner()
+        public Unit UnitSpawner()
         {
-
+            if (b_team == 1)//team 1 (Melee Units)
+            {
+                Unit unit;
+                MeleeUnit m = new MeleeUnit(b_xpos, b_ypos + 1, 50, 7, 1 ,1 , "oP", false, "Warrior");
+                unit = m;                
+                return unit;
+            }
+            if (b_team ==2)//team 2 (Ranged Units)
+            {
+                Unit unit;
+                RangedUnit ru = new RangedUnit(b_xpos,b_ypos + 1, 30, 10, 5, 2, "o|}", false, "Archer");
+                unit = ru;
+                return unit;
+            }
+            else //team 3 (Wizard Units)
+            {
+                Unit unit;            
+                WizardUnit w = new WizardUnit(b_xpos,b_ypos + 1, 40, 8, 1, 3, "o/*", false , "Wizard");
+                unit = w;
+                return unit;
+            }
         }
     }
 }
