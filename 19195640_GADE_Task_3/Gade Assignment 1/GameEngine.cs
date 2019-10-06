@@ -14,7 +14,8 @@ namespace Gade_Assignment_1
         public GameEngine()
         {
             roundscompleted = 0;
-            map = new Map(15, 12);//declaring number of units and buildings for map class
+     
+            map = new Map(15, 12);
             map.UnitGeneration();
             map.BuildingGeneration();
         }
@@ -33,7 +34,6 @@ namespace Gade_Assignment_1
         {
             get { return resources; }
         }
-
         public void startround()
         {
             //combat for ranged units

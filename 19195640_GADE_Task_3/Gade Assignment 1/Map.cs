@@ -21,14 +21,19 @@ namespace Gade_Assignment_1//task 3
         public List<Building> buildings = new List<Building>();
         public List<FactoryBuilding> factory_buildings;
         public List<ResourceBuilding> resource_buildings;
+        
+        
+
+        BattleForm bf = new BattleForm();
 
         public Random r = new Random();
+        
 
         public Map(int numberofunits, int numberofbuildings)
         {
             //numberofunits and numberofbuildings are declared in game engine
-
-            map1 = new string[20, 20];
+            int mapsize = bf.mapsize;          
+            map1 = new string[mapsize, mapsize];
             //Ranged Units (Team 1, 5 of each)
             rangedUnits = new List<RangedUnit>();
             ranged_unit_amount = numberofunits / 3;
@@ -296,9 +301,6 @@ namespace Gade_Assignment_1//task 3
             //}
 
         }
-        public void Read()
-        {
-
-        }
+      
     }
 }

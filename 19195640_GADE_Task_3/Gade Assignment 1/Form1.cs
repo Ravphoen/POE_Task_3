@@ -14,11 +14,14 @@ namespace Gade_Assignment_1
 {
     public partial class BattleForm : Form
     {
+        public int mapsize;
+        public int numberofunits;
+        public int numberofbuildings;
         public BattleForm()
         {
             InitializeComponent();
         }
-        Map map = new Map(20,12);
+        Map map = new Map();
         GameEngine gameengine = new GameEngine();
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -49,6 +52,35 @@ namespace Gade_Assignment_1
         private void btnStart_Click(object sender, EventArgs e)
         {
             gametimer.Enabled = true;
+
+                        
+            if (cb10.Checked)
+            {
+                mapsize = 10;
+                numberofunits = 6;
+                numberofbuildings = 3;
+                
+            }
+            if (cb15.Checked)
+            {
+                mapsize = 15;
+                numberofunits = 8;
+                numberofbuildings = 6;
+               
+            }
+            if (cb20.Checked)
+            {
+                mapsize = 20;
+                numberofunits = 10;
+                numberofbuildings = 9;
+                
+            }
+            else
+            {
+                mapsize = 10;
+                MessageBox.Show("An error occured. A 10x10 map has been set as default.");
+                
+            }
         }
 
         private void btnPause_Click(object sender, EventArgs e)
@@ -60,7 +92,7 @@ namespace Gade_Assignment_1
         {
             BinaryFormatter BF = new BinaryFormatter();
             FileStream FS = new FileStream("MapInfo.dat", FileMode.Create, FileAccess.Write, FileShare.None);
-
+            
             try
             {
                 using (FS)
@@ -77,30 +109,7 @@ namespace Gade_Assignment_1
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            //String line;
-            //try
-            //{
-            //    StreamReader sr = new StreamReader("C:AllBattleInfo.txt");   
-                
-            //    //reading first line
-            //    line = sr.ReadLine();
-
-            //    //continuing reading until end of file
-            //    while (line != null)
-            //    {
-            //        textDisplayBox.Text=line;
-            //        //Readng following line until there are no more lines to read
-            //        line = sr.ReadLine();
-            //    }
-
-            //    //close the file
-            //    sr.Close();
-
-            //}
-            //catch (Exception E)
-            //{
-            //    textDisplayBox.Text = (E.Message);
-            //}
+          
         }
 
         private void MapTextBox_TextChanged(object sender, EventArgs e)
@@ -112,5 +121,7 @@ namespace Gade_Assignment_1
         {
 
         }
+
+       
     }
 }
