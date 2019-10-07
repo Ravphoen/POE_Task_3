@@ -21,8 +21,11 @@ namespace Gade_Assignment_1//task 3
         public List<Building> buildings = new List<Building>();
         public List<FactoryBuilding> factory_buildings;
         public List<ResourceBuilding> resource_buildings;
-        
-        
+        public List<ResourceBuilding> T1_resource_buildings;
+        public List<ResourceBuilding> T2_resource_buildings;
+        public List<ResourceBuilding> T3_resource_buildings;
+
+
 
         BattleForm bf = new BattleForm();
 
@@ -125,9 +128,10 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
                
-                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 1, "[*]", 1);
-                resource_buildings.Add(RB);
-                buildings.Add(RB);
+                ResourceBuilding RB1 = new ResourceBuilding(randomXposition, randomYposition, 100, 1, "[*]", 1);
+                resource_buildings.Add(RB1);
+                T1_resource_buildings.Add(RB1);
+                buildings.Add(RB1);
             }
             //gennerating team 2 resource buildings
             for (int i = 0; i < T2_resource_building_amount; i++)
@@ -135,9 +139,10 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
                
-                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 2, "[+]",1);
-                resource_buildings.Add(RB);
-                buildings.Add(RB);
+                ResourceBuilding RB2 = new ResourceBuilding(randomXposition, randomYposition, 100, 2, "[+]",1);
+                resource_buildings.Add(RB2);
+                T2_resource_buildings.Add(RB2);
+                buildings.Add(RB2);
             }
             //generating team 3 resource buildings
             for (int i = 0; i < T2_resource_building_amount; i++)
@@ -145,9 +150,10 @@ namespace Gade_Assignment_1//task 3
                 randomXposition = r.Next(1, 19);
                 randomYposition = r.Next(1, 19);
 
-                ResourceBuilding RB = new ResourceBuilding(randomXposition, randomYposition, 100, 3, "[+]",1);
-                resource_buildings.Add(RB);
-                buildings.Add(RB);
+                ResourceBuilding RB3 = new ResourceBuilding(randomXposition, randomYposition, 100, 3, "[+]",1);
+                resource_buildings.Add(RB3);
+                T3_resource_buildings.Add(RB3);
+                buildings.Add(RB3);
             }
             //generating team 1 factory buildings
             for (int i = 0; i < T1_factory_building_amount; i++)
