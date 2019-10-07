@@ -107,7 +107,9 @@ namespace Gade_Assignment_1
         {
             get { return base.unit_name;}
             set {unit_name=value; }
-        }              
+        }
+        public List<ResourceBuilding> T2_resource_buildings;
+
         //implementing and overriding methods
         public override void Move(Map.Direction d)
         {
@@ -305,6 +307,10 @@ namespace Gade_Assignment_1
                 if (R == this)
                 {
                     units.Remove(R);
+                    foreach (ResourceBuilding RB2 in T2_resource_buildings)
+                    {
+                        RB2.resources_generated++;
+                    }
                     return;
                 }
             }
@@ -327,14 +333,14 @@ namespace Gade_Assignment_1
         public BattleForm bf;
         public Map m;
 
-        public override void Save()
-        {
-            StreamWriter savestream;
-            savestream = File.CreateText("c:RangedUnitInfo.txt");
-            savestream.WriteLine(bf.Text = m.get_ranged_unit_info());
-            savestream.Close();
-            bf.Text = ("Created File!");
-        }
+        //public override void Save()
+        //{
+        //    StreamWriter savestream;
+        //    savestream = File.CreateText("c:RangedUnitInfo.txt");
+        //    savestream.WriteLine(bf.Text = m.get_ranged_unit_info());
+        //    savestream.Close();
+        //    bf.Text = ("Created File!");
+        //}
 
 
     }

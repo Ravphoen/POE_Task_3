@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace Gade_Assignment_1
 {
@@ -129,41 +130,35 @@ namespace Gade_Assignment_1
         }
         public BattleForm bf;
         public Map m;
-        public override void Save()
-        {
-
-            //StreamWriter savestream;
-            //savestream = File.CreateText("c:FactoryBuildingInfo.txt");
-            //savestream.WriteLine(bf.Text = m.get_factory_building_info());
-            //savestream.Close();
-            //bf.Text = ("Created File!");
-        }       
+                       
         public Map map;
         Random r = new Random();
+        ResourceBuilding rb;
 
         public Unit UnitSpawner()
         {
-            if (b_team == 1)//team 1 (Melee Units)
+            if (b_team == 1 && rb.Team ==1 && rb.resources_generated >1)//team 1 (Melee Units)
             {
                 Unit unit;
                 MeleeUnit m = new MeleeUnit(b_xpos, b_ypos + 1, 50, 7, 1 ,1 , "oP", false, "Warrior");
                 unit = m;                
                 return unit;
             }
-            if (b_team ==2)//team 2 (Ranged Units)
+            if (b_team ==2 && rb.Team == 2 && rb.resources_generated >1)//team 2 (Ranged Units)
             {
                 Unit unit;
                 RangedUnit ru = new RangedUnit(b_xpos,b_ypos + 1, 30, 10, 5, 2, "o|}", false, "Archer");
                 unit = ru;
                 return unit;
             }
-            else //team 3 (Wizard Units)
+            else if(b_team ==3 && rb.Team ==3 && rb.resources_generated >2) //team 3 (Wizard Units)
             {
                 Unit unit;            
                 WizardUnit w = new WizardUnit(b_xpos,b_ypos + 1, 40, 8, 1, 3, "o/*", false , "Wizard");
                 unit = w;
                 return unit;
             }
+            
         }
     }
 }

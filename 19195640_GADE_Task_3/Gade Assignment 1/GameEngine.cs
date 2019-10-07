@@ -179,7 +179,8 @@ namespace Gade_Assignment_1
         {
             string info =
                 map.get_melee_unit_info()
-                + map.get_ranged_unit_info();
+                + map.get_ranged_unit_info()
+                +map.get_wizard_info();
             return info;
 
         }

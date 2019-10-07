@@ -108,6 +108,8 @@ namespace Gade_Assignment_1
             set { unit_name = value; }
         }
 
+        public List<ResourceBuilding> T3_resource_buildings;
+
         //implementing and overriding methods
         public override void Move(Map.Direction d)
         {
@@ -306,6 +308,10 @@ namespace Gade_Assignment_1
                 if (W == this)
                 {
                     units.Remove(W);
+                    foreach (ResourceBuilding RB3 in T3_resource_buildings)
+                    {
+                        RB3.resources_generated++;
+                    }
                     return;
                 }
             }

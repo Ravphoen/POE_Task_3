@@ -17,6 +17,8 @@ namespace Gade_Assignment_1
         public int mapsize;
         public int numberofunits;
         public int numberofbuildings;
+        public int dispaybox;
+        
         public BattleForm()
         {
             InitializeComponent();
@@ -47,6 +49,7 @@ namespace Gade_Assignment_1
             textDisplayBox.Text = gameengine.Updateunit();//unit info
             textDisplayBox.Text = gameengine.Updatebuilding();//building info
             gameengine.startround();//calling start round method
+            
         }
 
         private void btnStart_Click(object sender, EventArgs e)

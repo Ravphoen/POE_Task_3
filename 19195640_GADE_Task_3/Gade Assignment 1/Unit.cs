@@ -27,6 +27,9 @@ namespace Gade_Assignment_1
         public abstract void CombatM(MeleeUnit enemytofight);
         public abstract void CombatR(RangedUnit enemytofight);
         public abstract void CombatW(WizardUnit enemytofight);
+        public abstract void B_CombatM(MeleeUnit enemytofight);
+        public abstract void B_CombatR(RangedUnit enemytofight);
+        public abstract void B_CombatW(WizardUnit enemytofight);
         public abstract bool Can_AttackM(MeleeUnit enemycanattack);
         public abstract bool Can_AttackR(RangedUnit enemycanattack);
         public abstract bool Can_AttackW(WizardUnit enemycanattack);

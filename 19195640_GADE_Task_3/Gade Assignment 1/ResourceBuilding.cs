@@ -83,11 +83,13 @@ namespace Gade_Assignment_1
             get { return base.b_symbol; }
             set { b_symbol = value; }
         }
+        
         //new resource building fields
         string resource_type;
-        int resources_generated = 0;
+        public int resources_generated { get; set; }
         int resources_per_round = 1;//will generate 1 per round
-        int remaning_resources;       
+        int remaning_resources;
+        
 
         public int ResourceGeneration()
         {
@@ -151,13 +153,13 @@ namespace Gade_Assignment_1
             return info;
             ;
         }
-        public override void Save()
-        {
-            StreamWriter savestream;
-            savestream = File.CreateText("c:ResourceBuildingInfo.txt");
-            savestream.WriteLine(bf.Text = m.get_resource_building_info());
-            savestream.Close();
-            bf.Text = ("Created File!");
-        }
+        //public override void Save()
+        //{
+        //    StreamWriter savestream;
+        //    savestream = File.CreateText("c:ResourceBuildingInfo.txt");
+        //    savestream.WriteLine(bf.Text = m.get_resource_building_info());
+        //    savestream.Close();
+        //    bf.Text = ("Created File!");
+        //}
     }
 }
