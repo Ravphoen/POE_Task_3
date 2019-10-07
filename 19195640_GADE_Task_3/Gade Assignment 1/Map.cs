@@ -29,32 +29,33 @@ namespace Gade_Assignment_1//task 3
         public Random r = new Random();
         
 
-        public Map(int numberofunits, int numberofbuildings)
+        public Map()
         {
             //numberofunits and numberofbuildings are declared in game engine
             int mapsize = bf.mapsize;          
             map1 = new string[mapsize, mapsize];
-            //Ranged Units (Team 1, 5 of each)
+            //Ranged Units (Team 1)
             rangedUnits = new List<RangedUnit>();
-            ranged_unit_amount = numberofunits / 3;
-            //Melee Units (Team 2, 5 of each)
-            meleeUnits = new List<MeleeUnit>();
-            melee_unit_amount = numberofunits / 3;
-            //Wizard Units (Team 3, 5 of each)
-            wizardUnits = new List<WizardUnit>();
-            wizard_unit_amount = numberofunits / 3;
+            ranged_unit_amount = bf.numberofunits / 3;
 
-            //Two of each building per team.
+            //Melee Units (Team 2)
+            meleeUnits = new List<MeleeUnit>();
+            melee_unit_amount = bf.numberofunits / 3;
+
+            //Wizard Units (Team 3)
+            wizardUnits = new List<WizardUnit>();
+            wizard_unit_amount = bf.numberofunits / 3;
+            
             factory_buildings = new List<FactoryBuilding>();
-            T1_factory_building_amount  = numberofbuildings / 6;
-            T2_factory_building_amount  = numberofbuildings / 6;
-            T3_factory_building_amount  = numberofbuildings / 6;
+            T1_factory_building_amount  = bf.numberofbuildings / 6;
+            T2_factory_building_amount  = bf.numberofbuildings / 6;
+            T3_factory_building_amount  = bf.numberofbuildings / 6;
 
 
             resource_buildings = new List<ResourceBuilding>();
-            T1_resource_building_amount = numberofbuildings / 6;
-            T2_resource_building_amount = numberofbuildings / 6;
-            T3_resource_building_amount = numberofbuildings / 6;
+            T1_resource_building_amount = bf.numberofbuildings / 6;
+            T2_resource_building_amount = bf.numberofbuildings / 6;
+            T3_resource_building_amount = bf.numberofbuildings / 6;
             
         }
         public enum Direction
@@ -65,12 +66,12 @@ namespace Gade_Assignment_1//task 3
             West
         }
 
-        //variables storing how many units to spawn.
+        //variables storing how many units to spawn. Assigned in constructor using form values.
         int ranged_unit_amount;
         int melee_unit_amount;
         int wizard_unit_amount;
 
-        //variables storing how many buildings to spawn per team (two for each)
+        //variables storing how many buildings to spawn per team. Assigned in constructor using form values.
         int T1_resource_building_amount;
         int T2_resource_building_amount;
         int T3_resource_building_amount;

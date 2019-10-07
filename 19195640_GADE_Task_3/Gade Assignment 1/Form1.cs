@@ -78,6 +78,8 @@ namespace Gade_Assignment_1
             else
             {
                 mapsize = 10;
+                numberofunits = 6;
+                numberofbuildings = 3;
                 MessageBox.Show("An error occured. A 10x10 map has been set as default.");
                 
             }

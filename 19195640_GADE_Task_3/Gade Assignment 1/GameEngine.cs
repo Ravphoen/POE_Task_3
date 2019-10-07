@@ -15,7 +15,7 @@ namespace Gade_Assignment_1
         {
             roundscompleted = 0;
      
-            map = new Map(15, 12);
+            map = new Map();
             map.UnitGeneration();
             map.BuildingGeneration();
         }
