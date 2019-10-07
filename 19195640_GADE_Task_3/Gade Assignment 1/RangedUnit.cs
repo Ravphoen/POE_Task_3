@@ -146,6 +146,23 @@ namespace Gade_Assignment_1
             enemytofight.Health -= this.attack;
             Attacking = true;
         }
+
+        public override void B_CombatM(MeleeUnit buildingtofight)
+        {
+            buildingtofight.Health -= this.attack;
+            Attacking = true;
+        }
+        public override void B_CombatR(RangedUnit buildingtofight)
+        {
+            buildingtofight.Health -= this.attack;
+            Attacking = true;
+        }
+        public override void B_CombatW(WizardUnit buildingtofight)
+        {
+            buildingtofight.Health -= this.attack;
+            Attacking = true;
+        }
+
         public override bool Can_AttackR(RangedUnit enemycanattack)
         {
             bool Xpositioninrange = false;
@@ -221,6 +238,83 @@ namespace Gade_Assignment_1
                 return false;
             }
         }
+
+        public override bool B_Can_AttackM(MeleeUnit buildingcanattack)
+        {
+            bool Xpositioninrange = false;
+
+            if (Math.Abs(buildingcanattack.XPos) <= Math.Abs(this.XPos) + this.Attack_Range)
+            {
+                Xpositioninrange = true;
+            }
+
+            bool Ypositioninrange = false;
+
+            if (Math.Abs(buildingcanattack.YPos) <= Math.Abs(this.YPos) + this.Attack_Range)
+            {
+                Ypositioninrange = true;
+            }
+
+            if (Xpositioninrange && Ypositioninrange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool B_Can_AttackR(RangedUnit buildingcanattack)
+        {
+            bool Xpositioninrange = false;
+
+            if (Math.Abs(buildingcanattack.XPos) <= Math.Abs(this.XPos) + this.Attack_Range)
+            {
+                Xpositioninrange = true;
+            }
+
+            bool Ypositioninrange = false;
+
+            if (Math.Abs(buildingcanattack.YPos) <= Math.Abs(this.YPos) + this.Attack_Range)
+            {
+                Ypositioninrange = true;
+            }
+
+            if (Xpositioninrange && Ypositioninrange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool B_Can_AttackW(WizardUnit buildingcanattack)
+        {
+            bool Xpositioninrange = false;
+
+            if (Math.Abs(buildingcanattack.XPos) <= Math.Abs(this.XPos) + this.Attack_Range)
+            {
+                Xpositioninrange = true;
+            }
+
+            bool Ypositioninrange = false;
+
+            if (Math.Abs(buildingcanattack.YPos) <= Math.Abs(this.YPos) + this.Attack_Range)
+            {
+                Ypositioninrange = true;
+            }
+
+            if (Xpositioninrange && Ypositioninrange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public override RangedUnit Closest_Other_EnemyR(List<RangedUnit> Runits)
         {
             RangedUnit closestenemy = null;
@@ -300,6 +394,43 @@ namespace Gade_Assignment_1
             }
             return closestenemy;
         }
+
+        public override RangedUnit Closest_Other_BuildingR(List<RangedUnit> rangedUnits)
+        {
+            RangedUnit closestbuilding = null;
+            int closestbuildingdifference = 0;
+            int totaldifference;
+
+            foreach (RangedUnit R in Runits)
+            {
+                totaldifference = Math.Abs(this.XPos - R.XPos);
+                totaldifference += Math.Abs(this.YPos - R.YPos);
+                if (closestbuilding == null)
+                {
+                    closestbuilding = R;
+                    closestbuildingdifference = totaldifference;
+                }
+                else
+                {
+                    if (closestbuildingdifference > totaldifference)
+                    {
+                        closestbuilding = R;
+                        closestbuildingdifference = totaldifference;
+                    }
+                }
+            }
+
+            return closestbuilding;
+        }
+        public override MeleeUnit Closest_Other_BuildingM(List<MeleeUnit> meleeUnits)
+        {
+
+        }
+        public override WizardUnit Closest_Other_BuildingW(List<WizardUnit> wizardunits)
+        {
+
+        }
+
         public override void Death(List<Unit> units)
         {
             foreach (Unit R in units)
